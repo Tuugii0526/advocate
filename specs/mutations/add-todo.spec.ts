@@ -1,9 +1,22 @@
 import { addTodo } from "@/graphql/resolvers/mutations/add-todo";
-import { TaskModel } from "@/mongoose/task-model";
-// /Users/24LP3558/pinecone-advocate-graphql-challenge/mongoose/task-model.ts
-jest.mock("../../mongoose/task-mode.ts",()=>({
+const task={
+    name:'task',
+    des:'des',
+    isDone:false
+}
+jest.mock("../../mongoose/task-model",()=>({
     TaskModel:{
-        create:jest.fn()
+        create:jest.fn().mockResolvedValue({
+            name:'task',
+            des:'des',
+            isDone:false
+        })
     }
 
 }))
+describe("Add task",()=>{
+    it('SHould add a task',async()=>{
+        const newTask=await addTodo({},{input:task})
+        expect(newTask).toEqual(task)
+    })
+})
