@@ -9,7 +9,7 @@ import { typeDefs } from "@/graphql/schemas";
 connectMongoose();
 
 const server = new ApolloServer({
-  schema: buildSubgraphSchema({
+  schema: buildSubgraphSchema ({
     typeDefs,
     resolvers: resolvers as unknown as GraphQLResolverMap<unknown>,
   }),
